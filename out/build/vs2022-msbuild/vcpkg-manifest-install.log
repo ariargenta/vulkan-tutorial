@@ -1,0 +1,42 @@
+Detecting compiler hash for triplet x64-windows...
+Compiler found: C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe
+The following packages will be built and installed:
+    glfw3:x64-windows@3.4#1
+    glm:x64-windows@1.0.1#3
+  * vcpkg-cmake:x64-windows@2024-04-23
+  * vcpkg-cmake-config:x64-windows@2024-05-23
+Additional packages (*) will be modified to complete this operation.
+Restored 4 package(s) from C:\Users\arias\AppData\Local\vcpkg\archives in 256 ms. Use --debug to see more details.
+Installing 1/4 vcpkg-cmake-config:x64-windows@2024-05-23...
+Elapsed time to handle vcpkg-cmake-config:x64-windows: 10.2 ms
+vcpkg-cmake-config:x64-windows package ABI: 5f1f3cd7882579dd2444284cdce7347d07d9cbd78cf8e6adce4d55ae908ede17
+Installing 2/4 vcpkg-cmake:x64-windows@2024-04-23...
+Elapsed time to handle vcpkg-cmake:x64-windows: 9.38 ms
+vcpkg-cmake:x64-windows package ABI: 6b61cee016c92b8845d4c466e15226f9dbffe1f9b23b11f096ca5788d0dbfff8
+Installing 3/4 glfw3:x64-windows@3.4#1...
+Elapsed time to handle glfw3:x64-windows: 16.7 ms
+glfw3:x64-windows package ABI: c69f034c5b610b4e91cbd999e3ae99c8e87af4f0bc8f8246a0ea4a9bf4ce45bb
+Installing 4/4 glm:x64-windows@1.0.1#3...
+Elapsed time to handle glm:x64-windows: 238 ms
+glm:x64-windows package ABI: e6ccf96957dddcc83f3a4b0198b8cc7c0c12b3297aea6eb9d591a5162b957e50
+Total install time: 283 ms
+glfw3 provides CMake targets:
+
+  # this is heuristically generated, and may not be correct
+  find_package(glfw3 CONFIG REQUIRED)
+  target_link_libraries(main PRIVATE glfw)
+
+glfw3 provides pkg-config modules:
+
+  # A multi-platform library for OpenGL, window and input
+  glfw3
+
+The package glm provides CMake targets:
+
+    find_package(glm CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE glm::glm)
+
+    # Or use the header-only version
+    find_package(glm CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE glm::glm-header-only)
+
