@@ -34,7 +34,6 @@ conanfile.lock
 #IDE and editor settings
 .emscripten_cache/
 .vs/
-/.vs
 .vscode/
 !/.vscode/tasks.json
 .idea
