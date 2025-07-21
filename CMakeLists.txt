@@ -8,35 +8,48 @@ find_package(Vulkan REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
 
-set(GLSL_SRC
-    ${CMAKE_CURRENT_SOURCE_DIR}/shaders/shader.vert
-    ${CMAKE_CURRENT_SOURCE_DIR}/shaders/shader.frag
+find_program(GLSLC_EXECUTABLE NAMES glslc
+    HINTS $ENV{VULKAN_SDK}/Bin
+    REQUIRED
 )
 
-set(SPV_BINARIES "")
+message(STATUS ">>> glslc: ${GLSLC_EXECUTABLE}")
+
+file(GLOB GLSL_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/shaders/*.vert"
+    "${CMAKE_CURRENT_SOURCE_DIR}/shaders/*.frag"
+)
+
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/shaders)
+
+set(SPV_BINARIES)
 
 foreach(GLSL ${GLSL_SRC})
-    get_filename_component(GLSL_NAME ${GLSL} NAME)
-    set(SPV_FILE ${CMAKE_CURRENT_BINARY_DIR}/${GLSL_NAME}.spv)
+    get_filename_component(GLSL_EXT ${GLSL} LAST_EXT)
+    string(REPLACE "." "" EXT_STR ${GLSL_EXT})
+    set(SPV ${CMAKE_CURRENT_BINARY_DIR}/shaders/${EXT_STR}.spv)
 
-    add_custom_command(
-        OUTPUT ${SPV_FILE}
-        COMMAND ${Vulkan_GLSLC_EXECUTABLE} -o ${SPV_FILE} ${GLSL}
+    add_custom_command(OUTPUT ${SPV}
+        COMMAND ${GLSLC_EXECUTABLE} -o ${SPV} ${GLSL}
         DEPENDS ${GLSL}
-        COMMENT "Compiling ${GLSL_NAME} -> SPIR-V"
+        COMMENT "Compiling ${GLSL} -> ${EXT_STR}.spv"
         VERBATIM
     )
 
-    list(APPEND SPV_BINARIES ${SPV_FILE})
+    list(APPEND SPV_BINARIES ${SPV})
 endforeach()
 
 add_custom_target(shaders ALL DEPENDS ${SPV_BINARIES})
 
-add_executable(vulkan_tutorial
-    src/main.cpp
-)
+add_executable(vulkan_tutorial src/main.cpp)
 
 add_dependencies(vulkan_tutorial shaders)
+
+add_custom_command(TARGET vulkan_tutorial POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_CURRENT_BINARY_DIR}/shaders"
+        "$<TARGET_FILE_DIR:vulkan_tutorial>/shaders"
+)
 
 target_link_libraries(vulkan_tutorial
     PRIVATE
