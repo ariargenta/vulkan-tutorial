@@ -43,6 +43,11 @@ add_custom_target(shaders ALL DEPENDS ${SPV_BINARIES})
 
 add_executable(vulkan_tutorial src/main.cpp)
 
+target_include_directories(vulkan_tutorial
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
 add_dependencies(vulkan_tutorial shaders)
 
 add_custom_command(TARGET vulkan_tutorial POST_BUILD
