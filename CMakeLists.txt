@@ -16,8 +16,8 @@ find_program(GLSLC_EXECUTABLE NAMES glslc
 message(STATUS ">>> glslc: ${GLSLC_EXECUTABLE}")
 
 file(GLOB GLSL_SRC
-    "${CMAKE_CURRENT_SOURCE_DIR}/shaders/*.vert"
-    "${CMAKE_CURRENT_SOURCE_DIR}/shaders/*.frag"
+    "${CMAKE_CURRENT_SOURCE_DIR}/assets/shaders/*.vert"
+    "${CMAKE_CURRENT_SOURCE_DIR}/assets/shaders/*.frag"
 )
 
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/shaders)
@@ -27,7 +27,7 @@ set(SPV_BINARIES)
 foreach(GLSL ${GLSL_SRC})
     get_filename_component(GLSL_EXT ${GLSL} LAST_EXT)
     string(REPLACE "." "" EXT_STR ${GLSL_EXT})
-    set(SPV ${CMAKE_CURRENT_BINARY_DIR}/shaders/${EXT_STR}.spv)
+    set(SPV ${CMAKE_CURRENT_BINARY_DIR}/assets/shaders/${EXT_STR}.spv)
 
     add_custom_command(OUTPUT ${SPV}
         COMMAND ${GLSLC_EXECUTABLE} -o ${SPV} ${GLSL}
@@ -52,12 +52,6 @@ add_dependencies(vulkan_tutorial shaders)
 
 add_custom_command(TARGET vulkan_tutorial POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-        "${CMAKE_CURRENT_BINARY_DIR}/shaders"
-        "$<TARGET_FILE_DIR:vulkan_tutorial>/shaders"
-)
-
-add_custom_command(TARGET vulkan_tutorial POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
     "${CMAKE_CURRENT_SOURCE_DIR}/assets"
     "$<TARGET_FILE_DIR:vulkan_tutorial>/assets"
 )
@@ -70,4 +64,4 @@ target_link_libraries(vulkan_tutorial
 )
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}/src" FILES src/main.cpp)
-source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}/shaders" FILES ${GLSL_SRC})
+source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}/assets/shaders" FILES ${GLSL_SRC})
