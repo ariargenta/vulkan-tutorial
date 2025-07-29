@@ -12,8 +12,12 @@
       "description": "Ninja Multi-Config base configuration",
       "generator": "Ninja Multi-Config",
       "cacheVariables": {
-        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
-      }
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "CMAKE_TOOLCHAIN_FILE": {
+          "value": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+          "type": "FILEPATH"
+          }
+        }
     },
     {
       "name": "base-gcc",
@@ -127,7 +131,7 @@
       },
       "architecture": {
         "value": "x64",
-        "stategy": "external"
+        "strategy": "external"
       }
     }
   ],
