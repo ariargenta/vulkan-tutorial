@@ -4,10 +4,6 @@
   "description": "https://vulkan-tutorial.com/",
   "dependencies": [
     "glfw3",
-    "glm",
-    "stb",
-    "tinyobjloader",
-    "vulkan-sdk-components",
-    "vulkan-validationlayers"
+    "glm"
   ]
 }

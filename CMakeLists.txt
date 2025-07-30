@@ -15,7 +15,7 @@ find_program(GLSLC_EXECUTABLE NAMES glslc
 
 message(STATUS ">>> glslc: ${GLSLC_EXECUTABLE}")
 
-file(GLOB GLSL_SRC
+set(GLSL_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/assets/shaders/*.vert"
     "${CMAKE_CURRENT_SOURCE_DIR}/assets/shaders/*.frag"
 )
