@@ -16,8 +16,8 @@
         "CMAKE_TOOLCHAIN_FILE": {
           "value": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
           "type": "FILEPATH"
-          }
         }
+      }
     },
     {
       "name": "base-gcc",
@@ -53,7 +53,7 @@
       "inherits": "base-gcc",
       "binaryDir": "${sourceDir}/out/gcc",
       "cacheVariables": {
-        "CMAKE_CXX_FLAGS_DEBUG_INIT": "-Wall -Wextra -Wpedantic -Werror=return-type",
+        "CMAKE_CXX_FLAGS_DEBUG_INIT": "-Wall -Wextra -Wpedantic",
         "CMAKE_CXX_FLAGS_INIT": "-Wall -Wextra -Wpedantic -Werror"
       }
     },
@@ -64,7 +64,7 @@
       "inherits": "base-clang",
       "binaryDir": "${sourceDir}/out/clang",
       "cacheVariables": {
-        "CMAKE_CXX_FLAGS_DEBUG_INIT": "-Wall -Wextra -Wpedantic -Werror=return-type",
+        "CMAKE_CXX_FLAGS_DEBUG_INIT": "-Wall -Wextra -Wpedantic",
         "CMAKE_CXX_FLAGS_INIT": "-Wall -Wextra -Wpedantic -Werror"
       }
     },
@@ -85,7 +85,7 @@
       "inherits": "default",
       "binaryDir": "${sourceDir}/out/ubsan",
       "cacheVariables": {
-        "CMAKE_CXX_FLAGS_DEBUG_INIT": "-fsanitize=undefined -Wall -Wextra -Wpedantic -Werror=return-type",
+        "CMAKE_CXX_FLAGS_DEBUG_INIT": "-fsanitize=undefined -Wall -Wextra -Wpedantic",
         "CMAKE_CXX_FLAGS_INIT": "-fsanitize=undefined -Wall -Wextra -Wpedantic -Werror"
       }
     },
@@ -96,7 +96,7 @@
       "inherits": "default",
       "binaryDir": "${sourceDir}/out/asan",
       "cacheVariables": {
-        "CMAKE_CXX_FLAGS_DEBUG_INIT": "-fsanitize=address -Wall -Wextra -Wpedantic -Werror=return-type",
+        "CMAKE_CXX_FLAGS_DEBUG_INIT": "-fsanitize=address -Wall -Wextra -Wpedantic",
         "CMAKE_CXX_FLAGS_INIT": "-fsanitize=address -Wall -Wextra -Wpedantic -Werror"
       }
     },
@@ -117,7 +117,7 @@
       "inherits": "default",
       "binaryDir": "${sourceDir}/out/tsan",
       "cacheVariables": {
-        "CMAKE_CXX_FLAGS_INIT": "-fsanitize=address -Wall -Wextra -Wpedantic -Werror=return-type"
+        "CMAKE_CXX_FLAGS_INIT": "-fsanitize=address -Wall -Wextra -Wpedantic"
       }
     },
     {

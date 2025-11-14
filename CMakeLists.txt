@@ -9,18 +9,19 @@ find_package(glfw3 CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
 
 find_program(GLSLC_EXECUTABLE NAMES glslc
-    HINTS $ENV{VULKAN_SDK}/Bin
+    HINTS
+        $ENV{VULKAN_SDK}/Bin
     REQUIRED
 )
 
 message(STATUS ">>> glslc: ${GLSLC_EXECUTABLE}")
 
 set(GLSL_SRC
-    "${CMAKE_CURRENT_SOURCE_DIR}/assets/shaders/*.vert"
-    "${CMAKE_CURRENT_SOURCE_DIR}/assets/shaders/*.frag"
+    "${CMAKE_CURRENT_SOURCE_DIR}/assets/shaders/shader.vert"
+    "${CMAKE_CURRENT_SOURCE_DIR}/assets/shaders/shader.frag"
 )
 
-file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/shaders)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/assets/shaders)
 
 set(SPV_BINARIES)
 
@@ -52,8 +53,20 @@ add_dependencies(vulkan_tutorial shaders)
 
 add_custom_command(TARGET vulkan_tutorial POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-    "${CMAKE_CURRENT_SOURCE_DIR}/assets"
-    "$<TARGET_FILE_DIR:vulkan_tutorial>/assets"
+        "${CMAKE_CURRENT_BINARY_DIR}/assets/shaders"
+        "$<TARGET_FILE_DIR:vulkan_tutorial>/assets/shaders"
+)
+
+add_custom_command(TARGET vulkan_tutorial POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_CURRENT_SOURCE_DIR}/assets/textures"
+        "$<TARGET_FILE_DIR:vulkan_tutorial>/assets/textures"
+)
+
+add_custom_command(TARGET vulkan_tutorial POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_CURRENT_SOURCE_DIR}/assets/models"
+        "$<TARGET_FILE_DIR:vulkan_tutorial>/assets/models"
 )
 
 target_link_libraries(vulkan_tutorial

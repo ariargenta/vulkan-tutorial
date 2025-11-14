@@ -24,6 +24,7 @@
 #include <optional>
 #include <set>
 #include <unordered_map>
+#include <filesystem>
 
 #include "stb_image.h"
 #include "tiny_obj_loader.h"
@@ -399,7 +400,7 @@ private:
         }
 
         if (vkCreateInstance(&createInfo, nullptr, &instance) != VK_SUCCESS) {
-            throw std::runtime_error("failed to create instance!");
+            throw std::runtime_error("Failed to create instance!");
         }
     }
 
@@ -571,7 +572,7 @@ private:
         createInfo.oldSwapchain = VK_NULL_HANDLE;
 
         if (vkCreateSwapchainKHR(device, &createInfo, nullptr, &swapChain) != VK_SUCCESS) {
-            throw std::runtime_error("failed to create swap chain!");
+            throw std::runtime_error("Failed to create swap chain!");
         }
 
         vkGetSwapchainImagesKHR(device, swapChain, &imageCount, nullptr);
@@ -2244,6 +2245,8 @@ private:
 
 int main() {
     HelloTriangleApplication app;
+
+    std::cout << "Working dir: " << std::filesystem::current_path() << std::endl;
 
     try {
         app.run();
